@@ -19,6 +19,27 @@ app.use(express.urlencoded({
 app.use(express.json())
 
 //rotas
+app.post("/register/save", (req, res)=> {
+    const {title, pageqty} = request.body
+
+    const query = `
+    INSERT INTO books (tile, pageqty)
+    VALUES ('${title}', '${book}')
+    `
+    conn.query(query, (error) =>{
+        if (error){
+            console.log(error)
+            return
+        }
+
+        response.redirect("/")
+    })
+})
+
+app.get('/register', (req, res)=>{
+    express.response("register")
+}) 
+
 app.get('/', (req, res)=> {
     resposta.render("Home")
 })
