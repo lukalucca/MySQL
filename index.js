@@ -18,13 +18,16 @@ app.use(express.urlencoded({
 
 app.use(express.json())
 
+//CRUD = create, read, uptade, delete
+
+
 //rotas
 app.post("/register/save", (req, res)=> {
-    const {title, pageqty} = request.body
+    const {nome, pageqty} = req.body
 
     const query = `
-    INSERT INTO books (tile, pageqty)
-    VALUES ('${title}', '${book}')
+    INSERT INTO books (nome, pageqty)
+    VALUES ('${nome}', '${pageqty}')
     `
     conn.query(query, (error) =>{
         if (error){
@@ -32,16 +35,31 @@ app.post("/register/save", (req, res)=> {
             return
         }
 
-        response.redirect("/")
+        res.redirect("/")
     })
 })
 
 app.get('/register', (req, res)=>{
-    express.response("register")
+    res.render("register")
 }) 
 
+
+app.get("/", (req, res) =>{
+    const sql = 'SELECT * FROM books'
+    conn.query(sql, (error, data) =>{
+        if (error) {
+            return console.log(error)
+        }
+
+        const books = data
+        
+        res.render('home', { books })
+    })
+})
+
+
 app.get('/', (req, res)=> {
-    resposta.render("Home")
+    res.render("Home")
 })
 
 // conexão com mySQL
