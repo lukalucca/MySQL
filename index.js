@@ -27,7 +27,7 @@ app.post("/edit/save", (req, res) =>{
     
     const sql = `
     UPTADE books
-    SET title = '${title}', pageqty = '${pageqty}
+    SET Title = '${title}', pageqty = '${pageqty}
     WHERE id = ${id}
     `
 
@@ -42,6 +42,24 @@ app.post("/edit/save", (req, res) =>{
 
 
 //rotas
+
+app.post("/delete/:id",(req, res) =>{
+    const { id } = req.params
+
+    const sql = `
+        DELETE FROM books
+        WHERE id = ${id}
+    `
+    conn.query(sql, (error) =>{
+        if(error){
+            return console.log(error)
+        }
+
+        res.redirect("/")
+    })
+})
+
+
 app.post("/register/save", (req, res)=> {
     const {nome, pageqty} = req.body
 
@@ -59,8 +77,8 @@ app.post("/register/save", (req, res)=> {
     })
 })
 
-app.get("/edit/id", (req, res)=>{
-    const id = res.params.id
+app.get("/edit/:id", (req, res)=>{
+    const id = req.params.id
     const sql = `
         SELECT * FROM books
         WHERE id = ${id}

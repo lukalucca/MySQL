@@ -49,11 +49,13 @@ main > h2 {
     gap: 1rem;
 }
 
-.buttons a {
+.buttons a,
+.buttons button {
     display: block;
     text-decoration: none;
     padding: .5rem;
     border-radius: .5rem;
+    font-size: 1rem;
 }
 
 .buttons .mais{
@@ -74,6 +76,18 @@ main > h2 {
 }
 
 .buttons .editar:hover{
-    background-color: #ffc107;
+    background-color:white;
+    color: #ffc107;
+}
+
+.buttons .excluir{
+    border: 1px solid #dc3545;
+    background-color: #dc3545;
     color: white;
+}
+
+.buttons .excluir:hover{
+    background-color: white;
+    color: #dc3545;
+    cursor: pointer;
 }
